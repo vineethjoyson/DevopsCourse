@@ -1,4 +1,5 @@
 name: CI pipeline
+
 on:
   push:
     branches: [main]
@@ -6,16 +7,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # latest stable is v4, not v5
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v5
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - name: Instyall Dependencies
-      run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
 
-    - name: run tests
-      run: npm test
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
